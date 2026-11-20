@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mapa do Site & Arquitetura Digital | Legião Técnica Group</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between selection:bg-amber-500 selection:text-slate-950">
+
+  <!-- Faixa Superior -->
+  <div class="bg-amber-500/10 border-b border-amber-500/20 text-amber-400 text-xs py-2 px-4 text-center font-medium">
+    <i class="fa-solid fa-sitemap mr-1.5"></i>
+    <span>Mapa Estrutural Completo • Navegação Rápida de Entrada à Saída | Legião Técnica Group</span>
+  </div>
+
+  <!-- Header -->
+  <header class="border-b border-slate-800 bg-slate-900/70 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 py-3.5 flex items-center justify-between">
+      <a href="https://www.legiaotecnica.com.br" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center border border-amber-500/20 group-hover:border-amber-500/40 transition">
+          <i class="fa-solid fa-sitemap text-lg"></i>
+        </div>
+        <div>
+          <span class="text-base font-bold text-white tracking-wide block leading-tight">Legião Técnica</span>
+          <span class="text-[11px] text-amber-400 font-semibold uppercase tracking-wider">Mapa do Site & Ecossistema</span>
+        </div>
+      </a>
+
+      <div class="flex items-center gap-2">
+        <a href="https://www.legiaotecnica.com.br"
+          class="text-xs text-slate-300 hover:text-white font-medium transition flex items-center gap-1.5 border border-slate-800 hover:border-slate-700 bg-slate-900 px-3.5 py-2 rounded-xl">
+          <i class="fa-solid fa-house text-amber-400"></i>
+          <span>Voltar à Home</span>
+        </a>
+        <a href="https://wa.me/5514996481365?text=Ol%C3%A1%2C%20vim%20pelo%20Mapa%20do%20Site%20da%20Legi%C3%A3o%20T%C3%A9cnica%20e%20gostaria%20de%20atendimento." target="_blank"
+          class="text-xs bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-3.5 py-2 rounded-xl transition flex items-center gap-1.5 shadow-lg">
+          <i class="fa-brands fa-whatsapp text-sm"></i>
+          <span class="hidden sm:inline">WhatsApp</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Conteúdo Principal -->
+  <main class="max-w-5xl mx-auto px-4 py-10 flex-1 w-full space-y-8">
+
+    <!-- Cabeçalho da Página -->
+    <div class="text-center max-w-2xl mx-auto">
+      <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs font-semibold mb-4">
+        <i class="fa-solid fa-diagram-project"></i>
+        <span>Rede Estrutural • Entrada (Home) → Soluções → Saída (Contato)</span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-3">
+        Mapa do Site <span class="text-amber-400">Legião Técnica</span>
+      </h1>
+      <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
+        Explore em uma única tela toda a arquitetura de serviços, simuladores, calculadoras, cursos e canais de atendimento sem precisar ir e voltar pelos menus.
+      </p>
+    </div>
+
+    <!-- Barra de Busca + Botões Expandir/Recolher -->
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-3 bg-slate-900/80 border border-slate-800 p-3.5 rounded-2xl">
+      <div class="relative w-full sm:max-w-sm">
+        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-xs"></i>
+        <input type="text" id="buscaMapa" oninput="filtrarMapa()" placeholder="Filtrar no mapa (ex: NBR 5410, Inversor, SSD, VoIP)..."
+          class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-9 pr-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 transition">
+      </div>
+      <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
+        <button type="button" onclick="alternarTodos(true)"
+          class="text-xs px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold transition cursor-pointer">
+          <i class="fa-solid fa-plus-square mr-1 text-amber-400"></i>Expandir tudo
+        </button>
+        <button type="button" onclick="alternarTodos(false)"
+          class="text-xs px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold transition cursor-pointer">
+          <i class="fa-solid fa-minus-square mr-1 text-slate-400"></i>Recolher tudo
+        </button>
+      </div>
+    </div>
+
+    <!-- Árvore Hierárquica -->
+    <div id="arvoreSite" class="space-y-3 text-xs"></div>
+
+  </main>
+
+  <!-- Rodapé Institucional -->
+  <footer class="border-t border-slate-800 bg-slate-950 pt-10 pb-8 text-xs text-slate-400">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-slate-500">
+      <p>Legião Técnica Group © Direitos Reservados • Webmaster JM</p>
+      <div class="flex items-center gap-3 flex-wrap justify-center">
+        <a href="https://termos.legiaotecnica.com.br/#lgpd" target="_blank" rel="noopener noreferrer" class="hover:text-slate-300 transition">LGPD</a>
+        <span>•</span>
+        <a href="https://termos.legiaotecnica.com.br/#termos" target="_blank" rel="noopener noreferrer" class="hover:text-slate-300 transition">Termos de Uso</a>
+        <span>•</span>
+        <a href="https://termos.legiaotecnica.com.br/#cookies" target="_blank" rel="noopener noreferrer" class="hover:text-slate-300 transition">Políticas de Cookies</a>
+        <span>•</span>
+        <a href="https://termos.legiaotecnica.com.br/#privacidade" target="_blank" rel="noopener noreferrer" class="hover:text-slate-300 transition">Política de Privacidade</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const estruturaSite = [
+      {
+        id: "eletrica",
+        titulo: "1. Engenharia Elétrica & Infraestrutura",
+        subtitulo: "Serviços normativos ABNT NBR 5410, NR-10, padrões CPFL e calculadoras",
+        cor: "amber",
+        icone: "fa-bolt",
+        urlPrincipal: "https://eletrica.legiaotecnica.com.br",
+        grupos: [
+          {
+            nome: "Especialidades & Orçamentos Diretos",
+            links: [
+              { texto: "Elétrica Comercial & Industrial (Carga de Máquinas, AVCB, Eletrocalhas, Balanceamento)", url: "https://eletrica.legiaotecnica.com.br/#comercial" },
+              { texto: "Elétrica Residencial (Reformas Completas, Chuveiros e Circuitos Dedicados)", url: "https://eletrica.legiaotecnica.com.br/#residencial" },
+              { texto: "Manutenção Geral (Termografia de Pontos Quentes, Fuga de Corrente e Curto)", url: "https://eletrica.legiaotecnica.com.br/#manutencao" },
+              { texto: "Quadros QDC & Padrão de Entrada Homologado (CPFL / Concessionárias)", url: "https://eletrica.legiaotecnica.com.br/#quadros" }
+            ]
+          },
+          {
+            nome: "Calculadoras de Engenharia Elétrica",
+            links: [
+              { texto: "Dimensionamento NBR 5410 (Bitola de Cabos, Disjuntores e Queda de Tensão)", url: "https://nbr5410.legiaotecnica.com.br" },
+              { texto: "Autonomia de Nobreaks & Banco de Baterias (VRLA / Estacionárias)", url: "https://nobreaks.legiaotecnica.com.br" },
+              { texto: "Curto-Circuito MT / AT (Falta Simétrica e Disjuntores SEP)", url: "https://curtocircuito.legiaotecnica.com.br" }
+            ]
+          }
+        ]
+      },
+      {
+        id: "eletronica",
+        titulo: "2. Laboratório de Eletrônica & Automação",
+        subtitulo: "Bancada especializada em reparo de placas, inversores, nobreaks e portões",
+        cor: "violet",
+        icone: "fa-microchip",
+        urlPrincipal: "https://eletronica.legiaotecnica.com.br",
+        grupos: [
+          {
+            nome: "Especialidades de Bancada & Campo",
+            links: [
+              { texto: "Eletrônica Geral (No-breaks, TVs, Monitores, Projetores, Áudio e Desoxidação)", url: "https://eletronica.legiaotecnica.com.br/#geral" },
+              { texto: "Inversores de Frequência, Soft-Starters, IHMs, CLPs e Fontes Industriais", url: "https://eletronica.legiaotecnica.com.br/#inversores" },
+              { texto: "Placas & Fontes (Retrabalho SMD/BGA, Placas Inverter Ar/Linha Branca, Carga Ativa)", url: "https://eletronica.legiaotecnica.com.br/#placas" },
+              { texto: "Portões Eletrônicos, Controles RF, Interfonia, Vídeo Porteiros e Travas", url: "https://eletronica.legiaotecnica.com.br/#portoes" }
+            ]
+          },
+          {
+            nome: "Utilidades Técnicas da Bancada",
+            links: [
+              { texto: "Simulador de Pré-Orçamento Online (Nobreaks, Inversores, Placas e PCs)", url: "https://orcamento.legiaotecnica.com.br" },
+              { texto: "Leitor de Código de Cores de Resistores (4 e 5 Faixas)", url: "https://resistores.legiaotecnica.com.br" },
+              { texto: "Calculadora de Lei de Ohm & Potência Elétrica", url: "https://ohm.legiaotecnica.com.br" },
+              { texto: "Associação de Capacitores Série & Paralelo (pF, nF, µF, mF)", url: "https://capacitores.legiaotecnica.com.br" },
+              { texto: "Calculadora de Reatância Indutiva (XL), Capacitiva (XC) & Ressonância LC", url: "https://reatancia.legiaotecnica.com.br" }
+            ]
+          }
+        ]
+      },
+      {
+        id: "informatica",
+        titulo: "3. Informática, Redes & Servidores",
+        subtitulo: "Suporte corporativo, infraestrutura de rede, servidores e diagnóstico",
+        cor: "cyan",
+        icone: "fa-laptop-code",
+        urlPrincipal: "https://informatica.legiaotecnica.com.br",
+        grupos: [
+          {
+            nome: "Serviços de TI & Infraestrutura",
+            links: [
+              { texto: "PC's e Notebooks (Upgrade SSD/RAM, Formatação Windows/Linux, Limpeza e Placas)", url: "https://informatica.legiaotecnica.com.br/#pcs" },
+              { texto: "Redes e Wi-Fi (Rede Mesh, Cabeamento Cat6, Racks, VLANs e Firewalls)", url: "https://informatica.legiaotecnica.com.br/#redes" },
+              { texto: "Servidores & Backup (Linux/Windows Server, Virtualização, Backup 3-2-1 e Active Directory)", url: "https://informatica.legiaotecnica.com.br/#servidores" },
+              { texto: "Suporte Corporativo (Atendimento Remoto/Presencial, Contratos Mensais e Auditoria)", url: "https://informatica.legiaotecnica.com.br/#suporte" }
+            ]
+          },
+          {
+            nome: "Ferramentas de Telecom & Redes",
+            links: [
+              { texto: "Calculadora de Sub-rede IPv4 & Máscara CIDR", url: "https://ipv4.legiaotecnica.com.br" },
+              { texto: "Calculadora de Largura de Banda VoIP (Codecs e Ramais Simultâneos)", url: "https://voip.legiaotecnica.com.br" }
+            ]
+          }
+        ]
+      },
+      {
+        id: "seguranca",
+        titulo: "4. Cibersegurança & Prevenção a Fraudes",
+        subtitulo: "Enciclopédia educativa com podcasts sobre golpes digitais e proteção de dados",
+        cor: "rose",
+        icone: "fa-shield-halved",
+        urlPrincipal: "https://seguranca.legiaotecnica.com.br",
+        grupos: [
+          {
+            nome: "Guia Preventivo & Áudios",
+            links: [
+              { texto: "Portal Completo: Enciclopédia de Fraudes Digitais (18 episódios + podcasts)", url: "https://seguranca.legiaotecnica.com.br" },
+              { texto: "Verificador de Vazamento de E-mail e Senhas (Have I Been Pwned)", url: "https://haveibeenpwned.com/" }
+            ]
+          }
+        ]
+      },
+      {
+        id: "sites",
+        titulo: "5. Criação de Sites & Presença Digital",
+        subtitulo: "42 modelos prontos por segmento, formulários de pedido e cartões digitais NFC",
+        cor: "emerald",
+        icone: "fa-globe",
+        urlPrincipal: "https://sites.legiaotecnica.com.br",
+        grupos: [
+          {
+            nome: "Soluções Web & Identidade Digital",
+            links: [
+              { texto: "Catálogo Completo de Estruturas Prontas (42 Modelos: Comércio, Profissões, Saúde e Indústria)", url: "https://sites.legiaotecnica.com.br/#catalogo" },
+              { texto: "Formulário de Pedido Rápido de Site Profissional", url: "https://sites.legiaotecnica.com.br/#pedido" },
+              { texto: "Cartão de Visitas Digital LTG (Sem Chip / QR Code)", url: "https://www.e4card.com.br/kde6r?LEGIAO-TECNICA" },
+              { texto: "Cartão de Visitas Físico Inteligente LTG (Com Chip NFC)", url: "https://airgo.bio/legiaotecnica" }
+            ]
+          }
+        ]
+      },
+      {
+        id: "cursos",
+        titulo: "6. Cursos EAD & Capacitação Profissional",
+        subtitulo: "Plataforma parceira licenciada de ensino a distância com certificação",
+        cor: "blue",
+        icone: "fa-graduation-cap",
+        urlPrincipal: "https://www.legiaotecnica.com.br/cursos-ead",
+        grupos: [
+          {
+            nome: "Portal Educacional",
+            links: [
+              { texto: "Acessar Catálogo de Cursos EAD (Plataforma Oficial Licenciada)", url: "https://www.legiaotecnica.com.br/cursos-ead" }
+            ]
+          }
+        ]
+      },
+      {
+        id: "miniapps",
+        titulo: "7. Central de Mini Aplicativos & Utilitários",
+        subtitulo: "Hub integrado com 17 calculadoras, simuladores e ferramentas de gestão",
+        cor: "amber",
+        icone: "fa-shapes",
+        urlPrincipal: "https://apps.legiaotecnica.com.br",
+        grupos: [
+          {
+            nome: "Gestão, Pátio, Locação & Produtividade",
+            links: [
+              { texto: "Abrir Hub Central de Mini Apps (Todos os 17 Aplicativos)", url: "https://apps.legiaotecnica.com.br" },
+              { texto: "Simulador de Locação & Diárias de Equipamentos", url: "https://locacao.legiaotecnica.com.br" },
+              { texto: "Checklist de Inspeção & Vistoria de Pátio", url: "https://checklist.legiaotecnica.com.br" },
+              { texto: "Controle de Estoque & Disponibilidade em Nuvem", url: "https://estoque.legiaotecnica.com.br" },
+              { texto: "Guia de Roçadeiras & Dosador de Óleo 2T", url: "https://rocadeiras.legiaotecnica.com.br" },
+              { texto: "Comparador Inteligente de Preços de Supermercado (3 Mercados)", url: "https://apps.legiaotecnica.com.br/mercado.html" }
+            ]
+          }
+        ]
+      },
+      {
+        id: "dicas",
+        titulo: "8. Sites & Dicas Úteis (Radar Web)",
+        subtitulo: "Curadoria de ferramentas gratuitas, economia na internet e inteligência artificial",
+        cor: "cyan",
+        icone: "fa-compass",
+        urlPrincipal: "https://dicas.legiaotecnica.com.br",
+        grupos: [
+          {
+            nome: "Ferramentas & Tutoriais",
+            links: [
+              { texto: "Portal Radar de Sites & Dicas Úteis (Podcasts + Atalhos)", url: "https://dicas.legiaotecnica.com.br" }
+            ]
+          }
+        ]
+      }
+    ];
+
+    function toggleNo(id) {
+      const body = document.getElementById('body-' + id);
+      const icon = document.getElementById('icon-' + id);
+      if (!body) return;
+      const fechado = body.classList.toggle('hidden');
+      if (icon) icon.className = fechado ? 'fa-solid fa-plus text-[10px]' : 'fa-solid fa-minus text-[10px]';
+    }
+
+    function alternarTodos(expandir) {
+      document.querySelectorAll('[id^="body-"]').forEach(el => el.classList.toggle('hidden', !expandir));
+      document.querySelectorAll('[id^="icon-"]').forEach(ic => {
+        ic.className = expandir ? 'fa-solid fa-minus text-[10px]' : 'fa-solid fa-plus text-[10px]';
+      });
+    }
+
+    function renderizarMapa(filtro = '') {
+      const container = document.getElementById('arvoreSite');
+      const termo = filtro.trim().toLowerCase();
+
+      const totalLinks = estruturaSite.reduce((acc, sec) =>
+        acc + sec.grupos.reduce((gAcc, g) => gAcc + g.links.length, 0), 0);
+
+      let html = `
+        <!-- NÓ RAIZ: ENTRADA (HOME) -->
+        <div class="flex items-center justify-between flex-wrap gap-3 bg-blue-600/15 border border-blue-500/40 rounded-2xl px-5 py-4 shadow-lg">
+          <div class="flex items-center gap-3">
+            <span class="w-9 h-9 rounded-xl bg-blue-600 text-white flex items-center justify-center shadow">
+              <i class="fa-solid fa-house text-sm"></i>
+            </span>
+            <div>
+              <span class="font-extrabold text-white text-sm sm:text-base block">ENTRADA • Home Page (www.legiaotecnica.com.br)</span>
+              <span class="text-[11px] text-blue-300">Base SP & Brasil • ${estruturaSite.length} Pilares Principais • ${totalLinks} Destinos Diretos</span>
+            </div>
+          </div>
+          <a href="https://www.legiaotecnica.com.br"
+            class="text-xs font-bold px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white transition">
+            Acessar Home
+          </a>
+        </div>
+
+        <!-- TRONCO DA ÁRVORE -->
+        <div class="ml-3 sm:ml-7 pl-4 sm:pl-7 border-l-2 border-slate-700 space-y-3.5">
+      `;
+
+      estruturaSite.forEach(sec => {
+        const gruposFiltrados = sec.grupos.map(g => ({
+          nome: g.nome,
+          links: g.links.filter(l =>
+            termo === '' ||
+            sec.titulo.toLowerCase().includes(termo) ||
+            sec.subtitulo.toLowerCase().includes(termo) ||
+            g.nome.toLowerCase().includes(termo) ||
+            l.texto.toLowerCase().includes(termo)
+          )
+        })).filter(g => g.links.length > 0);
+
+        if (termo !== '' && gruposFiltrados.length === 0) return;
+
+        const abertoPorFiltro = termo !== '';
+
+        html += `
+          <div class="relative">
+            <span class="hidden sm:block absolute -left-7 top-5 w-7 h-0.5 bg-slate-700"></span>
+            <div class="bg-slate-900/90 border border-${sec.cor}-500/30 hover:border-${sec.cor}-500/50 rounded-2xl p-4 transition">
+              <div class="flex items-center justify-between gap-3 flex-wrap">
+                <button type="button" onclick="toggleNo('${sec.id}')" class="flex items-center gap-3 text-left cursor-pointer flex-1 min-w-[220px]">
+                  <span class="w-6 h-6 rounded-lg bg-${sec.cor}-500/20 text-${sec.cor}-400 border border-${sec.cor}-500/30 flex items-center justify-center shrink-0">
+                    <i id="icon-${sec.id}" class="fa-solid ${abertoPorFiltro ? 'fa-minus' : 'fa-plus'} text-[10px]"></i>
+                  </span>
+                  <div>
+                    <span class="font-bold text-${sec.cor}-400 text-sm block">${sec.titulo}</span>
+                    <span class="text-[11px] text-slate-400">${sec.subtitulo}</span>
+                  </div>
+                </button>
+                <a href="${sec.urlPrincipal}"
+                  class="text-[11px] font-bold px-3 py-1.5 rounded-xl bg-${sec.cor}-500/10 hover:bg-${sec.cor}-500 text-${sec.cor}-300 hover:text-slate-950 border border-${sec.cor}-500/25 transition shrink-0">
+                  Abrir Seção <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-[10px]"></i>
+                </a>
+              </div>
+
+              <div id="body-${sec.id}" class="${abertoPorFiltro ? '' : 'hidden'} mt-4 ml-3 pl-4 border-l border-${sec.cor}-500/30 space-y-3">
+                ${gruposFiltrados.map(g => `
+                  <div>
+                    <div class="font-bold text-slate-200 mb-1.5">${g.nome}</div>
+                    <ul class="ml-2 pl-3 border-l border-slate-800 space-y-1.5">
+                      ${g.links.map(l => `
+                        <li>
+                          <a href="${l.url}" target="${l.url.startsWith('https://haveibeenpwned') || l.url.startsWith('https://www.e4card') || l.url.startsWith('https://airgo') ? '_blank' : '_self'}"
+                            class="text-slate-400 hover:text-${sec.cor}-300 transition flex items-start gap-1.5">
+                            <span class="text-slate-600">├─</span>
+                            <span>${l.texto}</span>
+                          </a>
+                        </li>
+                      `).join('')}
+                    </ul>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          </div>
+        `;
+      });
+
+      html += `
+          <!-- NÓ FINAL: SAÍDA / CONTATO & GOVERNANÇA -->
+          <div class="relative">
+            <span class="hidden sm:block absolute -left-7 top-6 w-7 h-0.5 bg-slate-700"></span>
+            <div class="bg-emerald-950/40 border border-emerald-500/40 rounded-2xl p-4 flex items-center justify-between flex-wrap gap-3">
+              <div class="flex items-center gap-3">
+                <span class="w-8 h-8 rounded-xl bg-emerald-600 text-white flex items-center justify-center shrink-0">
+                  <i class="fa-brands fa-whatsapp text-sm"></i>
+                </span>
+                <div>
+                  <span class="font-extrabold text-emerald-300 text-sm block">SAÍDA • Atendimento Comercial, Orçamentos & Governança</span>
+                  <span class="text-[11px] text-slate-400">WhatsApp (14) 99648-1365 • E-mail joaomarcos@legiaotecnica.com.br • Guaiçara - SP • LGPD & Termos</span>
+                </div>
+              </div>
+              <div class="flex items-center gap-2">
+                <a href="https://termos.legiaotecnica.com.br/#lgpd" target="_blank"
+                  class="text-[11px] font-semibold px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700 transition">
+                  Termos & LGPD
+                </a>
+                <a href="https://wa.me/5514996481365?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20com%20a%20Legi%C3%A3o%20T%C3%A9cnica." target="_blank"
+                  class="text-[11px] font-bold px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white transition shadow">
+                  Falar no WhatsApp
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      `;
+
+      container.innerHTML = html;
+    }
+
+    function filtrarMapa() {
+      renderizarMapa(document.getElementById('buscaMapa').value);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => renderizarMapa());
+  </script>
+</body>
+</html>
